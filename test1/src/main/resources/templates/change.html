@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<meta charset="UTF-8">
+<head>
+<style type="text/css">
+<!--
+div {
+
+}
+input{
+float: right;
+    width:70%;
+}
+p{
+    float: left;
+}
+table{
+    width: 100%;
+    text-align: center;
+}
+.Hedder{
+    width: 100%;
+    height:80px;
+    background-color:#C0C0C0;
+}
+.Tab1{
+    position: relative;
+    width: 15%;
+    height:80px;
+    float: left;
+    background-color:#808080;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Tab2{
+    width: 10%;
+    height:80px;
+    float: right;
+    background-color:#C0C0C0;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box1,.box2,.box3,.box4{
+    border: solid 1px #808080;
+    box-sizing: border-box;
+    
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box1{
+  float: right;
+  width: 20%;
+  height:100px
+  
+}
+  .box2, .box3, .box4 {
+  float: left;
+  width: 80%;
+  height:50px
+   }
+
+   
+   tr{
+   border: solid 1px #808080;
+   box-sizing: border-box;
+   }
+   .Tab1 a{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height:100%;
+    width: 100%;
+   }
+   .pclass{
+   width: 100%;
+   color: red
+   ;
+   }
+-->
+</style>
+  <title>Springboot</title>
+  <meta charset="utf-8" />
+</head>
+<body>
+  <div class="Hedder"><div class="Tab1">TODOリスト<a href="http://ec2-54-95-215-78.ap-northeast-1.compute.amazonaws.com:8080"></a></div>
+  <div class="Tab2"><a href="http://ec2-54-95-215-78.ap-northeast-1.compute.amazonaws.com:8080/search">検索</a></div></div>
+  <tr th:each="emp : ${employeelist}" th:object="${emp}">
+  <form method="get" action="ch">
+  <div class="box1"><input type="submit" name = "aaa" value="更新"></div>
+  <div class="box2"><p>TODO名</p><input type="text" name="text1" th:value="*{todoname}"></div>
+  <div class="box3"><p>期限　　　</p>
+<select name="year">
+<option value="2019">2019</option>
+<option value="2020">2020</option>
+<option value="2021">2021</option>
+<option value="2022">2022</option>
+<option value="2023">2023</option>
+<option value="2024">2024</option>
+<option value="2025">2025</option>
+<option value="2026">2026</option>
+<option value="2027">2027</option>
+<option value="2028">2028</option>
+<option value="2029">2029</option>
+<option value="2030">2030</option>
+</select>年
+<select name="month">
+<option value="01">01</option>
+<option value="02">02</option>
+<option value="03">03</option>
+<option value="04">04</option>
+<option value="05">05</option>
+<option value="06">06</option>
+<option value="07">07</option>
+<option value="08">08</option>
+<option value="09">09</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+</select>月
+<select name="day">
+<option value="01">01</option>
+<option value="02">02</option>
+<option value="03">03</option>
+<option value="04">04</option>
+<option value="05">05</option>
+<option value="06">06</option>
+<option value="07">07</option>
+<option value="08">08</option>
+<option value="09">09</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+</select>日
+</div>
+  </form>
+  </tr>
+  <div th:text="${msg}" class="pclass"></div>
+</body>
+</html>

@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<meta charset="UTF-8">
+<head>
+<style type="text/css">
+<!--
+div {
+
+}
+input{
+float: right;
+    width:70%;
+}
+p{
+    float: left;
+}
+table{
+    width: 100%;
+    text-align: center;
+}
+.Hedder{
+    width: 100%;
+    height:80px;
+    background-color:#C0C0C0;
+}
+.Tab1{
+position: relative;
+    width: 15%;
+    height:80px;
+    float: left;
+    background-color:#808080;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Tab2{
+    width: 10%;
+    height:80px;
+    float: right;
+    background-color:#C0C0C0;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box1,.box2,.box3{
+    border: solid 1px #808080;
+    box-sizing: border-box;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box1{
+  float: right;
+  width: 20%;
+  height:100px
+  
+}
+  .box2, .box3 {
+  float: left;
+  width: 80%;
+  height:100px
+   }
+   table{
+   margin-left:auto;
+   margin-right:auto;
+   width: 80%;
+   box-sizing: border-box;
+   text-align: center;
+   background-color:#C0C0C0;
+   
+   }
+   .box4, .box5, .box6{
+   width: 70%;
+   float: left;
+   background-color:#C0C0C0;
+   
+   }
+   .box7, .box8, .box9{
+   width: 20%;
+   float: left;
+   background-color:#C0C0C0;
+   
+   }
+
+   .box4, .box7{
+   margin-top: 10px;
+   }
+   .changebutton, .complete{
+   width: 50%;
+   float: left;
+   border-bottom:solid 1px #808080;
+   box-sizing: border-box;
+   }
+.button1, .button2{
+    width: 100%;
+    height: 25px;
+    float: left;
+}
+.button1{
+    background-color:#808080;
+}
+   .pclass{
+   width: 100%;
+   color: red;
+   }
+   .Tab1 a{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height:100%;
+    width:100%;
+   }
+-->
+</style>
+  <title>Springboot</title>
+  <meta charset="utf-8" />
+</head>
+<body>
+    <div class="Hedder">
+    <div class="Tab1">TODOリスト<a href="http://ec2-54-95-215-78.ap-northeast-1.compute.amazonaws.com:8080"></a></div>
+    <div class="Tab2"></div>
+    </div>
+  <form method="get" action="se">
+  <div class="box1"><input type="submit" name = "aaa" value="検索"></div>
+  <div class="box2"><input type="text" name="text1" ></div>
+  </form>
+  <div th:text="${msg}" class="pclass"></div>
+      <table th:each="emp : ${employeelist}" th:object="${emp}">
+    　<tr>
+      <td th:text="TODO名" class="box7"></td>
+      <td th:text="*{todoname}" class="box4"></td>
+     </tr>
+    <tr>
+      <td th:text="期限：" class="box8"></td>
+      <td th:text="*{untildate}" class="box5"></td>
+    </tr>
+    <tr>
+      <td th:text="作成日：" class="box9"></td>
+      <td th:text="*{createdate}" class="box6"></td>
+    </tr> 
+    <tr>
+      <form method="get" action="change">
+      <td class="changebutton">
+      <button class="button1" type="submit" th:value = "*{id}" name="id">編集</button>
+      </td>
+      </form>
+      <form method="get" action="searchcomplete">
+      <td class="complete">
+      <button type="submit"　 th:style="*{color}" class="button2"  th:text = "*{complete}" th:value = "*{id}" name="colorid">
+      </td>
+       </form>
+    </tr> 
+  </table>
+
+  
+</body>
+</html>
