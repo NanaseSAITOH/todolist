@@ -15,7 +15,7 @@ TODOリストの検索(データベース上のTODO名の検索)<br>
 3.TODO検索画面<br>
 である.先ずは1.のTODO追加画面の設計について説明する.<br>
 ![suteru_fay](https://user-images.githubusercontent.com/52820882/62184351-ae2b8780-b398-11e9-8c2a-b372d3467e81.png)
-TODOの追加については画面上に入力されたTODO名と締め切り時間,またTODOが未完了である事を認識させるため数字デフォルトで0を,ボタンの実装に必要なデフォルトの値"red"を追加ボタンを押すとサーバーに転送する.以下に追加の際のサンプルプログラムを示す.
+TODOの追加については画面上に入力されたTODO名と締め切り時間,またTODOが未完了である事を認識させるため数字デフォルトで0を,ボタンの実装に必要なデフォルトの値"red"を追加ボタンを押すとサーバーに転送する.以下に追加の際のサンプルプログラムを示す.ここでのnとはEmployeeクラスのインスタンス,empRepositoryとはEmployeeRepositoryクラスのインスタンスのことである.
 ```java:push.java
                 n.setTodoname(text1);//toDO名の追加
 		n.setUntildate(Date);//締め切り時間の追加
