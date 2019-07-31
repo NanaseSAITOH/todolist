@@ -56,4 +56,5 @@ TODOの追加については画面上に入力されたTODO名と締め切り時
 ## 2.2.TODO編集画面
 ![suteru_fay](https://user-images.githubusercontent.com/52820882/62186244-817b6e00-b3a0-11e9-9537-f6d2c4c8a5e7.png)
 編集画面についてはTODO追加画面,または検索画面でのボタンが押されたTODOのIDを取得して,IDに応じたTODO名と締め切り時間の表示をする.
-編集画面で編集事項が入力されボタンを押されるとTODOがアップデートされる.
+編集画面で編集事項が入力されボタンを押されるとTODOがアップデートされる.HelloControllerクラスのchメソッドがそれに当たる.
+## 2.3.TODO検索画面
