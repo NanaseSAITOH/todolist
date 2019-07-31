@@ -51,3 +51,5 @@ TODOの追加については画面上に入力されたTODO名と締め切り時
     		@Param("color") String color,
     		@Param("listno") int listno);
 ```
+次に編集ボタンの説明をする.編集ボタンについてはTODOのidで編集すべきTODOを認識して編集する.HelloControllerクラスのchangeメソッドがそれに当たる.
+
