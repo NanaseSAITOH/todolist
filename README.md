@@ -58,3 +58,10 @@ TODOの追加については画面上に入力されたTODO名と締め切り時
 編集画面についてはTODO追加画面,または検索画面でのボタンが押されたTODOのIDを取得して,IDに応じたTODO名と締め切り時間の表示をする.
 編集画面で編集事項が入力されボタンを押されるとTODOがアップデートされる.HelloControllerクラスのchメソッドがそれに当たる.
 ## 2.3.TODO検索画面
+検索画面においては,未完了状態のTODOしか検索できない仕様である.<br>
+検索については部分一致のものを検索するのが要求仕様であったため,クエリを以下のようにLIKE詞で修飾した.<br>
+```mysql:sample.sql
+select * from test3 where todoname like ?1% AND complete=0
+```
+検索結果で出てくる編集ボタンや完了ボタンの挙動については,2.1節のTODO追加画面と同じである.
+![suteru_fay](https://user-images.githubusercontent.com/52820882/62186244-817b6e00-b3a0-11e9-9537-f6d2c4c8a5e7.png),
