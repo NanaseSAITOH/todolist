@@ -39,3 +39,15 @@ TODOの追加については画面上に入力されたTODO名と締め切り時
         model.addAttribute("employeelist", emplist);
 	return "index";
 ```
+```java:EmployeeRepository.java
+    	@Modifying
+	@Transactional
+	@Query(value = "update test3 t set"
+			+ " t.complete = :complete,"
+			+ " t.color = :color"
+			+ " where t.listno = :listno", nativeQuery = true)
+	public int update2(
+		@Param("complete") int complete,
+    		@Param("color") String color,
+    		@Param("listno") int listno);
+```
