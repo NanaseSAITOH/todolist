@@ -1,2 +1,7 @@
-# todolist
-TodoList
+TODOList
+====
+# はじめに
+今回は某インターンの課題としてTODOリストを作成した.
+また開発環境はEclipse,サーバーはAWSを使用した.
+# 環境構成
+
