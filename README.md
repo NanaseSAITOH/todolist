@@ -16,7 +16,7 @@ TODOリストの検索(データベース上のTODO名の検索)<br>
 である.先ずは1.のTODO追加画面の設計について説明する.<br>
 ![suteru_fay](https://user-images.githubusercontent.com/52820882/62184351-ae2b8780-b398-11e9-8c2a-b372d3467e81.png)
 TODOの追加については画面上に入力されたTODO名と締め切り時間,またTODOが未完了である事を認識させるため数字デフォルトで0を,ボタンの実装に必要なデフォルトの値"red"を追加ボタンを押すとサーバーに転送する.以下に追加の際のサンプルプログラムを示す.ここでのnとはEmployeeクラスのインスタンス,empRepositoryとはEmployeeRepositoryクラスのインスタンスのことである.
-```java:push.java
+```java:HelloController.java
                 n.setTodoname(text1);//toDO名の追加
 		n.setUntildate(Date);//締め切り時間の追加
 		n.setColor("red");//ボタンのための完了フラグの追加
@@ -27,4 +27,15 @@ TODOの追加については画面上に入力されたTODO名と締め切り時
 				DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		n.setCreatedate(df1.format(d));//追加した現在の時間の追加
 		empRepository.save(n);
+```
+ボタンのための完了フラグを別に管理した理由は,今回は完了・未完了をボタンで切り替えることが要求仕様であったためである.もっと良い方法があったと思うが実装の方法がわからなかったので管理を完了フラグと別にした.完了ボタンを押した時の挙動としては,完了状態だとボタンの文字を完了,背景を青に未完了状態だとボタンの文字を未完了,背景を赤にする.プログラムは以下の通りである.
+```java:HelloController.java
+    	if(empRepository.findComp(colorid).equals("blue")) {
+    	empRepository.update2(0,"red",colorid);
+    	}else {
+    	empRepository.update2(1,"blue",colorid);
+    	}
+    	List<Employee> emplist=empRepository.findAll(new Sort(Sort.Direction.DESC,"id"));
+        model.addAttribute("employeelist", emplist);
+	return "index";
 ```
