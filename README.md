@@ -15,3 +15,16 @@ TODOリストの検索(データベース上のTODO名の検索)<br>
 3.TODO検索画面<br>
 である.先ずは1.のTODO追加画面の設計について説明する.<br>
 ![suteru_fay](https://user-images.githubusercontent.com/52820882/62184351-ae2b8780-b398-11e9-8c2a-b372d3467e81.png)
+TODOの追加については画面上に入力されたTODO名と締め切り時間が追加ボタンを押すとサーバーに転送される.以下に追加の際のサンプルプログラムを示す.
+```java:push.java
+    n.setTodoname(text1);
+		n.setUntildate(Date);
+		n.setColor("red");
+		Long i =(long) 0;
+		n.setComplete(i);
+		LocalDate d = LocalDate.now();
+		DateTimeFormatter df1 = 
+				DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		n.setCreatedate(df1.format(d));
+		empRepository.save(n);
+```
