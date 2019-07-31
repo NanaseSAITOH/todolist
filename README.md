@@ -14,9 +14,12 @@ TODOリストの検索(データベース上のTODO名の検索)<br>
 2.TODO編集画面<br>
 3.TODO検索画面<br>
 である.先ずは1.のTODO追加画面の設計について説明する.<br>
+## 2.1.設定したカラムについての説明
+今回設定したカラムは,TODO名を表すtodoname,idを表すlistno,締め切り時間を表すuntildate,TODOを作った時間のcreatedate,完了状態を表すcompleteとcolorである.完了状態をcompleteとcolorに分けた理由であるがボタンのための完了フラグを別にして,完了・未完了をボタンで切り替えたかったためである.もっと良い方法があったと思うが実装の方法がわからなかったので管理を完了フラグと別にした.未完了を表す値はcompleteで0,colorでred.完了を表す値はcompleteで1,colorでblueである.
 ## 2.1.TODO追加画面
 ![suteru_fay](https://user-images.githubusercontent.com/52820882/62184351-ae2b8780-b398-11e9-8c2a-b372d3467e81.png)
-TODOの追加については画面上に入力されたTODO名と締め切り時間,またTODOが未完了である事を認識させるため数字デフォルトで0を,ボタンの実装に必要なデフォルトの値"red"を追加ボタンを押すとサーバーに転送する.以下に追加の際のサンプルプログラムを示す.ここでのnとはEmployeeクラスのインスタンス,empRepositoryとはEmployeeRepositoryクラスのインスタンスのことである.
+TODOの追加については画面上に入力されたTODO名と締め切り時間,またTODOが未完了である事を認識させるため数字デフォルトで0を,ボタンの実装に必要なデフォルトの値"red"を追加ボタンを押すとサーバーに転送する.MySQLでtableを作る際にdafaultで設定したがなぜか当プロジェクトからリクエストを送るとnullとして認識　
+されたためこのような仕様にした.以下に追加の際のサンプルプログラムを示す.ここでのnとはEmployeeクラスのインスタンス,empRepositoryとはEmployeeRepositoryクラスのインスタンスのことである.
 ```java:HelloController.java
                 n.setTodoname(text1);//toDO名の追加
 		n.setUntildate(Date);//締め切り時間の追加
@@ -29,7 +32,7 @@ TODOの追加については画面上に入力されたTODO名と締め切り時
 		n.setCreatedate(df1.format(d));//追加した現在の時間の追加
 		empRepository.save(n);
 ```
-ボタンのための完了フラグを別に管理した理由は,今回は完了・未完了をボタンで切り替えることが要求仕様であったためである.もっと良い方法があったと思うが実装の方法がわからなかったので管理を完了フラグと別にした.完了ボタンを押した時の挙動としては,完了状態だとボタンの文字を完了,背景を青に未完了状態だとボタンの文字を未完了,背景を赤にする.プログラムは以下の通りである.
+完了ボタンを押した時の挙動としては,完了状態だとボタンの文字を完了,背景を青に未完了状態だとボタンの文字を未完了,背景を赤にする.プログラムは以下の通りである.
 ```java:HelloController.java
     	if(empRepository.findComp(colorid).equals("blue")) {
     	empRepository.update2(0,"red",colorid);
