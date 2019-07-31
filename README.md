@@ -17,7 +17,7 @@ TODOリストの検索(データベース上のTODO名の検索)<br>
 ## 2.1.設定したカラムについての説明
 今回設定したカラムは,TODO名を表すtodoname,idを表すlistno,締め切り時間を表すuntildate,TODOを作った時間のcreatedate,完了状態を表すcompleteとcolorである.完了状態をcompleteとcolorに分けた理由であるがボタンのための完了フラグを別にして,完了・未完了をボタンで切り替えたかったためである.もっと良い方法があったと思うが実装の方法がわからなかったので管理を完了フラグと別にした.未完了を表す値はcompleteで0,colorでred.完了を表す値はcompleteで1,colorでblueである.デフォルトは未完了状態である.
 ![suteru_fay](https://user-images.githubusercontent.com/52820882/62187765-5f381f00-b3a5-11e9-92ac-52f73f0ae60e.png)
-今回設定したカラムは,TODO名を表すtodoname,idを表すlistno,締め切り時間を表すuntildate,TODOを作った時間のcreatedate,完了状態を表すcompleteとcolorである.完了状態をcompleteとcolorに分けた理由であるがボタンのための完了フラグを別にして,完了・未完了をボタンで切り替えたかったためである.もっと良い方法があったと思うが実装の方法がわからなかったので管理を完了フラグと別にした.未完了を表す値はcompleteで0,colorでred.完了を表す値はcompleteで1,colorでblueである.デフォルトは未完了状態である.
+
 ## 2.1.TODO追加画面
 ![suteru_fay](https://user-images.githubusercontent.com/52820882/62184351-ae2b8780-b398-11e9-8c2a-b372d3467e81.png)
 TODOの追加については画面上に入力されたTODO名と締め切り時間,またTODOが未完了である事を認識させるため数字デフォルトで0を,ボタンの実装に必要なデフォルトの値"red"を追加ボタンを押すとサーバーに転送する.MySQLでtableを作る際にdafaultで設定したがなぜか当プロジェクトからリクエストを送るとnullとして認識　
