@@ -12,8 +12,21 @@ TODOリストの検索(データベース上のTODO名の検索)<br>
 ## 1.2. 使用した技術要素
 使用言語...JAVA<br>
 フレームワーク...spring boot<br>
-サーバー...AWS<br>
+サーバー...AWS EC2<br>
 データベース...MySQL<br>
+# 2.開発環境のセットアップ手順
+##雛形の作成方法
+ソースコードの雛形は Spring Initializr(https://start.spring.io)で作成し,最初のプルダウンはGradle を指定した.
+またSearch for dependencies には Web, JPA, Thymeleaf, DevTools, MySQL を指定した.
+##Eclipseのセットアップ
+今回は日本語プラグインは用いず英語でセットアップした.
+まずEclipseのダウンロードページ（https://www.eclipse.org/downloads/packages/
+）
+から一番上のインストーラをダウンロードする.インストールが終わると早速起動し,HELPバーにあるEclipse Market PlaceからBuildship Gradle Integrationをダウンロードする.
+EClipseの環境設定が完了するとEclipse内でSpring bootのプロジェクトが実行&ビルドできるので便利である.
+
+
+##AWSのセットアップ
 
 # 2. 設計・構成についての説明
 主にこのWebアプリは3つの画面から構成される.<br>
