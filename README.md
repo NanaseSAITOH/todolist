@@ -27,6 +27,22 @@ EClipseの環境設定が完了するとEclipse内でSpring bootのプロジェ�
 
 
 ## AWSのセットアップ
+AWSのアカウントはすでに持っている程で解説する.e<br>
+まずサービスバーからコンピューティング->EC2に移動する.e<br>
+するとインスタンス作成というボタンが真ん中に現れるのでそれをクリックする.e<br>
+AMIにはAmazon Linux AMI 2018.03.0 (HVM), SSD Volume Type<br>
+インスタンスタイプはt2.microe<br>
+セキュリティグループにはssh,http,またカスタムTCPルールとしてポート番号8080を追加した.<br>
+以上のセットアップをしサーバーを起動する.この際に出てくるpemファイルはわかりやすい場所に保存する.パブリックDNSも大切なのでコピーして保存されたい.<br>
+次にEC2にssh接続する.コマンドウィンドウを開いて
+```java:HelloController.java
+$ssh -i [pemファイルの場所/~.pem] ec2-user@[自分のパブリックDNS]
+```
+接続が終わるとspring bootで作ったプロジェクトを(https://confrage.jp/stsgradleで作成したspring-bootの実行可能jarを作成する方法/)を参照しjarファイルを作ってec2インスタンス上に配置する.転送前にjarファイルのあるディレクトリにcdを使って移動する必要があるので注意されたい.以下がec2上に転送するための方法だ.
+```java:HelloController.java
+$ sftp -i [pemファイルの場所/~.pem] ec2-user@[パブリックDNS]
+$ sftp> put [jarファイルの名前.jar]
+```
 
 # 2. 設計・構成についての説明
 主にこのWebアプリは3つの画面から構成される.<br>
@@ -39,7 +55,6 @@ EClipseの環境設定が完了するとEclipse内でSpring bootのプロジェ�
 ![suteru_fay](https://user-images.githubusercontent.com/52820882/62187765-5f381f00-b3a5-11e9-92ac-52f73f0ae60e.png)
 
 ## 2.1.TODO追加画面
-![suteru_fay](https://user-images.githubusercontent.com/52820882/62184351-ae2b8780-b398-11e9-8c2a-b372d3467e81.png)
 TODOの追加については画面上に入力されたTODO名と締め切り時間,またTODOが未完了である事を認識させるため数字デフォルトで0を,ボタンの実装に必要なデフォルトの値"red"を追加ボタンを押すとサーバーに転送する.MySQLでtableを作る際にdafaultで設定したがなぜか当プロジェクトからリクエストを送るとnullとして認識　
 されたためこのような仕様にした.以下に追加の際のサンプルプログラムを示す.ここでのnとはEmployeeクラスのインスタンス,empRepositoryとはEmployeeRepositoryクラスのインスタンスのことである.
 ```java:HelloController.java
