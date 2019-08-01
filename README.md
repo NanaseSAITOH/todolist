@@ -25,9 +25,8 @@ TODOリストの検索(データベース上のTODO名の検索)<br>
 まずEclipseのダウンロードページ（https://www.eclipse.org/downloads/packages/
 ）
 から一番上のインストーラをダウンロードする.インストールが終わると早速起動し,HELPバーにあるEclipse Market PlaceからBuildship Gradle Integrationをダウンロードする.
+![suteru_fay](https://user-images.githubusercontent.com/52820882/62268807-0089a880-b46c-11e9-8756-80f547b7ef65.png)
 EClipseの環境設定が完了するとEclipse内でSpring bootのプロジェクトが実行&ビルドできるので便利である.
-
-
 ## 2.3.AWSのセットアップ
 AWSのアカウントはすでに持っている程で解説する.<br>
 まずサービスバーからコンピューティング->EC2に移動する.<br>
