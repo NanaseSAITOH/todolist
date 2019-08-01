@@ -130,9 +130,9 @@ public int update2(
 上のjava:EmployeeRepository.javaを見てもわかるようにupdateはwhereで条件指定したかったのでクエリで実装した.また3.4節で述べる検索画面での検索の実装や3.3節で述べる編集画面の編集すべきTODOの表示などにselectで条件指定する必要があったのでクエリで実装した.詳しくはEmployeeRepository.javaを参照されたい.クエリで実装したためセキュリティ面が弱いのではないかと考えた.
 次に編集ボタンの説明をする.編集ボタンについてはTODOのidで編集すべきTODOを認識して編集する.HelloControllerクラスのchangeメソッドがそれに当たる.
 ## 3.3.TODO編集画面
-![suteru_fay](https://user-images.githubusercontent.com/52820882/62186244-817b6e00-b3a0-11e9-9537-f6d2c4c8a5e7.png)
 編集画面についてはTODO追加画面,または検索画面でのボタンが押されたTODOのIDを取得して,IDに応じたTODO名と締め切り時間の表示をする.
-編集画面で編集事項が入力されボタンを押されるとTODOがアップデートされる.HelloControllerクラスのchメソッドがそれに当たる.
+編集画面で編集事項が入力されボタンを押されるとTODOがアップデートされる.HelloControllerクラスのchメソッドがそれに当たる.以下の図は編集画面に関するフローである.
+![suteru_fay](https://user-images.githubusercontent.com/52820882/62311116-07450980-b4c6-11e9-9906-e873a140e3dc.png)
 ## 3.4.TODO検索画面
 検索画面においては,未完了状態のTODOしか検索できない仕様である.<br>
 検索についてはTODO名の部分一致のものを検索するのが要求仕様であったため,クエリを以下のようにLIKE詞で修飾した.<br>
