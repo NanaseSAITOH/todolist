@@ -74,7 +74,7 @@ $java -jar [jarファイルの名前.jar]
 ![suteru_fay](https://user-images.githubusercontent.com/52820882/62187765-5f381f00-b3a5-11e9-92ac-52f73f0ae60e.png)
 
 ## 3.2.TODO追加画面
-TODOの追加については画面上に入力されたTODO名と締め切り時間,またTODOが未完了である事を認識させるため数字デフォルトで0を,ボタンの実装に必要なデフォルトの値"red"を追加ボタンを押すとサーバーに転送する.MySQLでtableを作る際にdafaultで設定したがなぜか当プロジェクトからリクエストを送るとnullとして認識　
+TODOの追加については画面上に入力されたTODO名と締め切り時間,またTODOが未完了である事を認識させるため数字デフォルトで0を,ボタンの実装に必要なデフォルトの値"red"を追加ボタンを押すとサーバーに転送する.つまりTODO追加を行うとカラムcolorとcompleteに対して初期化が行われる.MySQLでtableを作る際にdafaultで設定したがなぜか当プロジェクトからリクエストを送るとnullとして認識　
 されたためこのような仕様にした.以下に追加の際のサンプルプログラムを示す.ここでのnとはEmployeeクラスのインスタンス,empRepositoryとはEmployeeRepositoryクラスのインスタンスのことである.
 ```java:HelloController.java
 n.setTodoname(text1);//toDO名の追加
@@ -89,7 +89,8 @@ n.setCreatedate(df1.format(d));//追加した現在の時間の追加
 empRepository.save(n);
 ```
 完了ボタンを押した時の挙動としては,完了状態だとボタンの文字を完了,背景を青に未完了状態だとボタンの文字を未完了,背景を赤にする.プログラムは以下の通りである.
-```java:HelloController.java
+```
+java:HelloController.java
 if(empRepository.findComp(colorid).equals("blue")) {
   empRepository.update2(0,"red",colorid);
  }else {
@@ -99,7 +100,8 @@ if(empRepository.findComp(colorid).equals("blue")) {
  model.addAttribute("employeelist", emplist);
  return "index";
 ```
-```java:EmployeeRepository.java
+```
+java:EmployeeRepository.java
 @Modifying
 @Transactional
 @Query(value = "update test3 t set"
