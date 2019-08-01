@@ -86,7 +86,21 @@ $java -jar [jarファイルの名前.jar]
 ## 3.1.設定したカラムについての説明
 今回設定したカラムは,TODO名を表すtodoname,idを表すlistno,締め切り時間を表すuntildate,TODOを作った時間のcreatedate,完了状態を表すcompleteとcolorである.完了パラメータをcompleteとcolorに分けた理由であるがボタンを押した時に動作として背景の変更と文字の変更の２種類が求められたためである文字の変更のパラメータをcomplete,背景の変更のパラメータをcolorとした.もっと良い方法があったと思うが実装の方法がわからなかったのでこの仕様にした.未完了を表す値はcompleteで0,colorでred.完了を表す値はcompleteで1,colorでblueである.デフォルトは未完了状態である.
 ![suteru_fay](https://user-images.githubusercontent.com/52820882/62187765-5f381f00-b3a5-11e9-92ac-52f73f0ae60e.png)
-
+どうやってcompleteとcolorの値でボタンを制御したかであるが,以下のようにパラメータの値をhtmlに変換し文字の方はvalueに背景の方はstyleに指定した.
+```java:Employee.java
+public String getComplete() {
+    if(complete!=1) {
+    	return("未完了");
+    }
+    return("完了");
+}
+public String getColor() {
+    if(!(color.equals("blue"))) {
+    	return("background-color:salmon;");
+    }
+    	return("background-color:blue;");
+}
+```
 ## 3.2.TODO追加画面
 TODO追加の際の転送するパラメータについては画面上に入力されたTODO名と締め切り時間,またTODOが未完了である事を認識させるため数字デフォルトで0を,ボタンの実装に必要なデフォルトの値"red"を追加ボタンを押すとサーバーに転送する.つまりTODO追加を行うとカラムcolorとcompleteに対しては未完了の初期化が行われる.MySQLでtableを作る際にdafaultでcomplete=0とcolor=redを設定したがなぜか当プロジェクトからリクエストを送るとnullとして認識されたためこのような仕様にした.以下に
 todo追加の際のサンプルプログラムを示す.ここでのnとはEmployeeクラスのインスタンス,empRepositoryとはEmployeeRepositoryクラスのインスタンスのことである.
@@ -106,14 +120,15 @@ empRepository.save(n);
 java:HelloController.java
 ```java:HelloController.java
 if(empRepository.findComp(colorid).equals("blue")) {//ボタンを押し前は完了状態か？
-  empRepository.update2(0,"red",colorid);//ボタンを押す前が完了状態だった時
+  empRepository.update2(0,"red",colorid);//ボタンを押す前が完了状態だった時のupdate
  }else {
-  empRepository.update2(1,"blue",colorid);//ボタンを押す前が未完了状態だった時
+  empRepository.update2(1,"blue",colorid);//ボタンを押す前が未完了状態だった時のupdate
  }
  List<Employee> emplist=empRepository.findAll(new Sort(Sort.Direction.DESC,"id"));//TODOが新しい順に並び替え
  model.addAttribute("employeelist", emplist);
  return "index";
 ```
+MySQLでのアップデートの実装は以下である.
 java:EmployeeRepository.java
 ```java:EmployeeRepository.java
 @Modifying
@@ -127,7 +142,7 @@ public int update2(
     	@Param("color") String color,
     	@Param("listno") int listno);
 ```
-上のjava:EmployeeRepository.javaを見てもわかるようにupdateはwhereで条件指定したかったのでクエリで実装した.また3.4節で述べる検索画面での検索の実装や3.3節で述べる編集画面の編集すべきTODOの表示などにselectで条件指定する必要があったのでクエリで実装した.詳しくはEmployeeRepository.javaを参照されたい.クエリで実装したためセキュリティ面が弱いのではないかと考えた.
+上のjava:EmployeeRepository.javaを見てもわかるようにupdateはwhereで条件指定したかったのでクエリで実装した.また3.4節で述べる検索画面での検索の実装や3.3節で述べる編集画面の編集すべきTODOの表示などもselectする時に条件指定する必要があったのでクエリで実装した.詳しくはEmployeeRepository.javaを参照されたい.クエリで実装したためセキュリティ面が弱いのではないかとも考えた.
 次に編集ボタンの説明をする.編集ボタンについてはTODOのidで編集すべきTODOを認識して編集する.HelloControllerクラスのchangeメソッドがそれに当たる.
 ## 3.3.TODO編集画面
 編集画面についてはTODO追加画面,または検索画面でのボタンが押されたTODOのIDを取得して,IDに応じたTODO名と締め切り時間の表示をする.
