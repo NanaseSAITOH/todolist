@@ -16,7 +16,8 @@ TODOリストの検索(データベース上のTODO名の検索)<br>
 データベース...MySQL<br>
 # 2.開発環境のセットアップ手順
 ## 雛形の作成方法
-ソースコードの雛形は Spring Initializr(https://start.spring.io)で作成し,最初のプルダウンはGradle を指定した.
+ソースコードの雛形は Spring Initializr(https://start.spring.io
+)で作成し,最初のプルダウンはGradle を指定した.
 またSearch for dependencies には Web, JPA, Thymeleaf, DevTools, MySQL を指定した.
 ## Eclipseのセットアップ
 今回は日本語プラグインは用いず英語でセットアップした.
@@ -37,13 +38,28 @@ AMIにはAmazon Linux AMI 2018.03.0 (HVM), SSD Volume Type<br>
 次にEC2にssh接続する.コマンドウィンドウを開いて
 ```java:HelloController.java
 $ssh -i [pemファイルの場所/~.pem] ec2-user@[自分のパブリックDNS]
+$exit
 ```
-接続が終わるとspring bootで作ったプロジェクトを(https://confrage.jp/stsgradleで作成したspring-bootの実行可能jarを作成する方法/)を参照しjarファイルを作ってec2インスタンス上に配置する.転送前にjarファイルのあるディレクトリにcdを使って移動する必要があるので注意されたい.以下がec2上に転送するための方法だ.
+接続が終わり初期設定も終わると$exitでログアウトしておく.次にspring bootで作ったプロジェクトを(https://confrage.jp/stsgradleで作成したspring-bootの実行可能jarを作成する方法/
+)を参照しjarファイルを作ってec2インスタンス上に配置する.転送前にjarファイルのあるディレクトリにcdを使って移動する必要があるので注意されたい.以下がec2上に転送するための方法だ.転送が終わるとログアウトする.
 ```java:HelloController.java
 $ sftp -i [pemファイルの場所/~.pem] ec2-user@[パブリックDNS]
 $ sftp> put [jarファイルの名前.jar]
+$ exit
 ```
-
+次にDBのセットアップを行う,通常AWSでDBを使う場合EC2+RDSが一般だと思うが今回はEC2内にMySQLをインストールしてEC2内で完結させた.
+以下のようにセットアップを行なった.
+```java:HelloController.java
+$sudo yum install  mysql56 mysql56-server //MySQLのインストール
+$sudo service mysqld start//MySQLの起動
+$mysql -u root //MySQLへログイン
+```
+セットアップが完了しMySQLへログインできると,後は自分のspring bootプロジェクトに合わせてMySQLを構築していく.
+DB構築が終わるとjarが実行可能になるので以下のように実行する.
+```java:HelloController.java
+$ssh -i [pemファイルの場所/~.pem] ec2-user@[自分のパブリックDNS]//サーバーへssh接続
+$java -jar test1-0.0.1-SNAPSHOT.jar 
+```
 # 2. 設計・構成についての説明
 主にこのWebアプリは3つの画面から構成される.<br>
 1.TODO追加画面<br>
