@@ -36,6 +36,7 @@ AMIにはAmazon Linux AMI 2018.03.0 (HVM), SSD Volume Type<br>
 セキュリティグループにはssh,http,またカスタムTCPルールとしてポート番号8080を追加した.<br>
 ![suteru_fay](https://user-images.githubusercontent.com/52820882/62267104-ffee1380-b465-11e9-8c42-96ae5ec9ce06.png)
 以上のセットアップをしサーバーを起動する.この際に出てくるpemファイルはわかりやすい場所に保存する.パブリックDNSも大切なのでコピーして保存されたい.<br>
+![suteru_fay](https://user-images.githubusercontent.com/52820882/62268885-4d6d7f00-b46c-11e9-90ca-1d7db2fea4cc.png)
 
 次にEC2にssh接続する.コマンドウィンドウを開いて
 ```java:HelloController.java
