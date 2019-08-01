@@ -19,6 +19,7 @@ TODOリストの検索(データベース上のTODO名の検索)<br>
 ソースコードの雛形は Spring Initializr(https://start.spring.io
 )で作成し,最初のプルダウンはGradle を指定した.
 またSearch for dependencies には Web, JPA, Thymeleaf, DevTools, MySQL を指定した.
+![suteru_fay](https://user-images.githubusercontent.com/52820882/62268237-2c0b9380-b46a-11e9-9b95-aaaeb74bf46d.png)
 ## 2.2.Eclipseのセットアップ
 今回は日本語プラグインは用いず英語でセットアップした.
 まずEclipseのダウンロードページ（https://www.eclipse.org/downloads/packages/
@@ -36,6 +37,7 @@ AMIにはAmazon Linux AMI 2018.03.0 (HVM), SSD Volume Type<br>
 セキュリティグループにはssh,http,またカスタムTCPルールとしてポート番号8080を追加した.<br>
 ![suteru_fay](https://user-images.githubusercontent.com/52820882/62267104-ffee1380-b465-11e9-8c42-96ae5ec9ce06.png)
 以上のセットアップをしサーバーを起動する.この際に出てくるpemファイルはわかりやすい場所に保存する.パブリックDNSも大切なのでコピーして保存されたい.<br>
+
 次にEC2にssh接続する.コマンドウィンドウを開いて
 ```java:HelloController.java
 $ssh -i [pemファイルの場所/~.pem] ec2-user@[自分のパブリックDNS]
@@ -59,7 +61,7 @@ $mysql -u root //MySQLへログイン
 DB構築が終わるとjarが実行可能になるので以下のように実行する.
 ```java:HelloController.java
 $ssh -i [pemファイルの場所/~.pem] ec2-user@[自分のパブリックDNS]//サーバーへssh接続
-$java -jar test1-0.0.1-SNAPSHOT.jar 
+$java -jar [jarファイルの名前.jar] 
 ```
 # 3. 設計・構成についての説明
 主にこのWebアプリは3つの画面から構成される.<br>
@@ -88,26 +90,26 @@ TODOの追加については画面上に入力されたTODO名と締め切り時
 ```
 完了ボタンを押した時の挙動としては,完了状態だとボタンの文字を完了,背景を青に未完了状態だとボタンの文字を未完了,背景を赤にする.プログラムは以下の通りである.
 ```java:HelloController.java
-    	if(empRepository.findComp(colorid).equals("blue")) {
-    	empRepository.update2(0,"red",colorid);
-    	}else {
-    	empRepository.update2(1,"blue",colorid);
-    	}
-    	List<Employee> emplist=empRepository.findAll(new Sort(Sort.Direction.DESC,"id"));
-        model.addAttribute("employeelist", emplist);
-	return "index";
+if(empRepository.findComp(colorid).equals("blue")) {
+  empRepository.update2(0,"red",colorid);
+ }else {
+  empRepository.update2(1,"blue",colorid);
+ }
+ List<Employee> emplist=empRepository.findAll(new Sort(Sort.Direction.DESC,"id"));
+ model.addAttribute("employeelist", emplist);
+ return "index";
 ```
 ```java:EmployeeRepository.java
-    	@Modifying
-	@Transactional
-	@Query(value = "update test3 t set"
-			+ " t.complete = :complete,"
-			+ " t.color = :color"
-			+ " where t.listno = :listno", nativeQuery = true)
-	public int update2(
-		@Param("complete") int complete,
-    		@Param("color") String color,
-    		@Param("listno") int listno);
+@Modifying
+@Transactional
+@Query(value = "update test3 t set"
+		+ " t.complete = :complete,"
+		+ " t.color = :color"
+		+ " where t.listno = :listno", nativeQuery = true)
+public int update2(
+	@Param("complete") int complete,
+    	@Param("color") String color,
+    	@Param("listno") int listno);
 ```
 次に編集ボタンの説明をする.編集ボタンについてはTODOのidで編集すべきTODOを認識して編集する.HelloControllerクラスのchangeメソッドがそれに当たる.
 ## 3.3.TODO編集画面
