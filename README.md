@@ -77,16 +77,16 @@ $java -jar [jarファイルの名前.jar]
 TODOの追加については画面上に入力されたTODO名と締め切り時間,またTODOが未完了である事を認識させるため数字デフォルトで0を,ボタンの実装に必要なデフォルトの値"red"を追加ボタンを押すとサーバーに転送する.MySQLでtableを作る際にdafaultで設定したがなぜか当プロジェクトからリクエストを送るとnullとして認識　
 されたためこのような仕様にした.以下に追加の際のサンプルプログラムを示す.ここでのnとはEmployeeクラスのインスタンス,empRepositoryとはEmployeeRepositoryクラスのインスタンスのことである.
 ```java:HelloController.java
-                n.setTodoname(text1);//toDO名の追加
-		n.setUntildate(Date);//締め切り時間の追加
-		n.setColor("red");//ボタンのための完了フラグの追加
-		Long i =(long) 0;
-		n.setComplete(i);//完了フラグの追加
-		LocalDate d = LocalDate.now();
-		DateTimeFormatter df1 = 
-				DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		n.setCreatedate(df1.format(d));//追加した現在の時間の追加
-		empRepository.save(n);
+n.setTodoname(text1);//toDO名の追加
+n.setUntildate(Date);//締め切り時間の追加
+n.setColor("red");//ボタンのための完了フラグの追加
+Long i =(long) 0;
+n.setComplete(i);//完了フラグの追加
+LocalDate d = LocalDate.now();
+DateTimeFormatter df1 = 
+DateTimeFormatter.ofPattern("yyyy-MM-dd");
+n.setCreatedate(df1.format(d));//追加した現在の時間の追加
+empRepository.save(n);
 ```
 完了ボタンを押した時の挙動としては,完了状態だとボタンの文字を完了,背景を青に未完了状態だとボタンの文字を未完了,背景を赤にする.プログラムは以下の通りである.
 ```java:HelloController.java
@@ -122,4 +122,4 @@ public int update2(
 ```mysql:sample.sql
 select * from test3 where todoname like ?1% AND complete=0
 ```
-検索結果で出てくる編集ボタンや完了ボタンの挙動については,2.1節のTODO追加画面と同じである.
+検索結果で出てくる編集ボタンや完了ボタンの挙動については,3.2節のTODO追加画面と同じである.
