@@ -84,33 +84,33 @@ $java -jar [jarファイルの名前.jar]
 3.TODO検索画面<br>
 である.これらの構成の説明の前にデータベースで設定したカラムについて説明する.<br>
 ## 3.1.設定したカラムについての説明
-今回設定したカラムは,TODO名を表すtodoname,idを表すlistno,締め切り時間を表すuntildate,TODOを作った時間のcreatedate,完了状態を表すcompleteとcolorである.完了状態をcompleteとcolorに分けた理由であるがボタンのための完了フラグを別にして,完了・未完了をボタンで切り替えたかったためである.もっと良い方法があったと思うが実装の方法がわからなかったので管理を完了フラグと別にした.未完了を表す値はcompleteで0,colorでred.完了を表す値はcompleteで1,colorでblueである.デフォルトは未完了状態である.
+今回設定したカラムは,TODO名を表すtodoname,idを表すlistno,締め切り時間を表すuntildate,TODOを作った時間のcreatedate,完了状態を表すcompleteとcolorである.完了パラメータをcompleteとcolorに分けた理由であるがボタンを押した時に動作として背景の変更と文字の変更の２種類が求められたためである文字の変更のパラメータをcomplete,背景の変更のパラメータをcolorとした.もっと良い方法があったと思うが実装の方法がわからなかったのでこの仕様にした.未完了を表す値はcompleteで0,colorでred.完了を表す値はcompleteで1,colorでblueである.デフォルトは未完了状態である.
 ![suteru_fay](https://user-images.githubusercontent.com/52820882/62187765-5f381f00-b3a5-11e9-92ac-52f73f0ae60e.png)
 
 ## 3.2.TODO追加画面
-TODOの追加については画面上に入力されたTODO名と締め切り時間,またTODOが未完了である事を認識させるため数字デフォルトで0を,ボタンの実装に必要なデフォルトの値"red"を追加ボタンを押すとサーバーに転送する.つまりTODO追加を行うとカラムcolorとcompleteに対して初期化が行われる.MySQLでtableを作る際にdafaultで設定したがなぜか当プロジェクトからリクエストを送るとnullとして認識　
-されたためこのような仕様にした.以下に追加の際のサンプルプログラムを示す.ここでのnとはEmployeeクラスのインスタンス,empRepositoryとはEmployeeRepositoryクラスのインスタンスのことである.
+TODO追加の際の転送するパラメータについては画面上に入力されたTODO名と締め切り時間,またTODOが未完了である事を認識させるため数字デフォルトで0を,ボタンの実装に必要なデフォルトの値"red"を追加ボタンを押すとサーバーに転送する.つまりTODO追加を行うとカラムcolorとcompleteに対しては未完了の初期化が行われる.MySQLでtableを作る際にdafaultでcomplete=0とcolor=redを設定したがなぜか当プロジェクトからリクエストを送るとnullとして認識されたためこのような仕様にした.以下に
+todo追加の際のサンプルプログラムを示す.ここでのnとはEmployeeクラスのインスタンス,empRepositoryとはEmployeeRepositoryクラスのインスタンスのことである.
 ```java:HelloController.java
 n.setTodoname(text1);//toDO名の追加
 n.setUntildate(Date);//締め切り時間の追加
-n.setColor("red");//ボタンのための完了フラグの追加
+n.setColor("red");//ボタンの背景のための未完了フラグの追加
 Long i =(long) 0;
-n.setComplete(i);//完了フラグの追加
+n.setComplete(i);//ボタンの文字のための未完了フラグの追加
 LocalDate d = LocalDate.now();
 DateTimeFormatter df1 = 
 DateTimeFormatter.ofPattern("yyyy-MM-dd");
-n.setCreatedate(df1.format(d));//追加した現在の時間の追加
+n.setCreatedate(df1.format(d));//追加時間の追加
 empRepository.save(n);
 ```
-完了ボタンを押した時の挙動としては,完了状態だとボタンの文字を完了,背景を青に未完了状態だとボタンの文字を未完了,背景を赤にする.プログラムは以下の通りである.<br>
+完了ボタンを押した時の挙動としては,押すまえの状態が完了状態だとボタンの文字を未完了,背景を赤に未完了状態だとボタンの文字を完了,背景を青にデータベース上でupdateする.プログラムは以下の通りである.<br>
 java:HelloController.java
 ```java:HelloController.java
-if(empRepository.findComp(colorid).equals("blue")) {
-  empRepository.update2(0,"red",colorid);
+if(empRepository.findComp(colorid).equals("blue")) {//ボタンを押し前は完了状態か？
+  empRepository.update2(0,"red",colorid);//ボタンを押す前が完了状態だった時
  }else {
-  empRepository.update2(1,"blue",colorid);
+  empRepository.update2(1,"blue",colorid);//ボタンを押す前が未完了状態だった時
  }
- List<Employee> emplist=empRepository.findAll(new Sort(Sort.Direction.DESC,"id"));
+ List<Employee> emplist=empRepository.findAll(new Sort(Sort.Direction.DESC,"id"));//TODOが新しい順に並び替え
  model.addAttribute("employeelist", emplist);
  return "index";
 ```
