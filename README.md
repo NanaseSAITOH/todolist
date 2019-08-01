@@ -146,8 +146,19 @@ public int update2(
 次に編集ボタンの説明をする.編集ボタンについてはTODOのidで編集すべきTODOを認識して編集する.HelloControllerクラスのchangeメソッドがそれに当たる.
 ## 3.3.TODO編集画面
 編集画面についてはTODO追加画面,または検索画面でのボタンが押されたTODOのIDを取得して,IDに応じたTODO名と締め切り時間の表示をする.
-編集画面で編集事項が入力されボタンを押されるとTODOがアップデートされる.HelloControllerクラスのchメソッドがそれに当たる.以下の図は編集画面に関するフローである.
+編集画面で編集事項が入力されボタンを押されるとTODOがアップデートされる.HelloControllerクラスのchメソッドでボタンを押したidに対応したtodoデータ(todo名,締め切り時間,作成時間,完了フラグ２個)をchange.htmlに表示する.以下の図は編集画面に関するフローである.
 ![suteru_fay](https://user-images.githubusercontent.com/52820882/62311116-07450980-b4c6-11e9-9906-e873a140e3dc.png)
+```java:EmployeeRepository.java
+@RequestMapping(value = "change",method = RequestMethod.GET)
+   public String change(@RequestParam("id")Integer id,
+		Model model) {
+   List<Employee> emplist=empRepository.findById1(id);
+   model.addAttribute("employeelist", emplist);
+   nowId=id;
+   return "change";
+	}
+```
+また実際に変更した際の動作はc
 ## 3.4.TODO検索画面
 検索画面においては,未完了状態のTODOしか検索できない仕様である.<br>
 検索についてはTODO名の部分一致のものを検索するのが要求仕様であったため,クエリを以下のようにLIKE詞で修飾した.<br>
