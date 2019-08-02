@@ -172,8 +172,13 @@ Spring bootではjavaプロジェクトからhtmlに値を渡す時にth:textな
 なおエスケープ処理を行いたくない場合はth:utextで値を渡してやると良い.<br>
 デフォルトでエスケープが行われることを知らずハマった箇所である.
 ![suteru_fay](https://user-images.githubusercontent.com/52820882/62346076-c386ea00-b52f-11e9-9f76-3958abfc6e02.png)
-#最後に
-##今後の展望
+# 最後に
+## 今後の展望
 今回はEC2の中にMySQLを実装したので次はEC2とRDSのサブシステムに分けてインフラ構築したい.
-##ハマった箇所
-s
+## ハマった箇所
+プロジェクトを実際に公開する際にssh接続して$java -jar [jarファイルの名前.jar] で実行すると書いたがこれでは一定時間経つとspring bootがシャットダウンしてしまうようだ.<br>
+代わりに
+```
+$ nohup java -jar test1-0.0.1-SNAPSHOT.jar > output.log 2>&1&
+```
+で実行するとシャットダウンせずに公開することができた.
