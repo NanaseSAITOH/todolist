@@ -14,6 +14,8 @@ TODOリストの検索(データベース上のTODO名の検索)<br>
 フレームワーク...spring boot<br>
 サーバー...AWS EC2<br>
 データベース...MySQL<br>
+## 1.3.テスト環境
+safari
 # 2.開発環境のセットアップ手順
 ## 2.1.雛形の作成方法
 ソースコードの雛形は Spring Initializr(https://start.spring.io
@@ -117,7 +119,7 @@ n.setCreatedate(df1.format(d));//追加時間の追加
 empRepository.save(n);
 ```
 完了ボタンを押した時の挙動としては,押すまえの状態が完了状態だとボタンの文字を未完了,背景を赤に未完了状態だとボタンの文字を完了,背景を青にデータベース上でupdateする.プログラムは以下の通りである.<br>
-java:HelloController.java
+HelloController.java
 ```java:HelloController.java
 if(empRepository.findComp(colorid).equals("blue")) {//ボタンを押し前は完了状態か？
   empRepository.update2(0,"red",colorid);//ボタンを押す前が完了状態だった時のupdate
@@ -128,8 +130,8 @@ if(empRepository.findComp(colorid).equals("blue")) {//ボタンを押し前は�
  model.addAttribute("employeelist", emplist);
  return "index";
 ```
-MySQLでのアップデートの実装は以下である.
-java:EmployeeRepository.java
+MySQLでのアップデートの実装は以下である.<br>
+EmployeeRepository.java
 ```java:EmployeeRepository.java
 @Modifying
 @Transactional
