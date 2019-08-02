@@ -167,3 +167,13 @@ public int update2(
 select * from test3 where todoname like ?1% AND complete=0
 ```
 検索結果で出てくる編集ボタンや完了ボタンの挙動については,3.2節のTODO追加画面と同じである.HelloControllerクラスのsearchメソッドが検索画面の実装部分になる.
+## 3.4.エスケープ処理について
+Spring bootではjavaプロジェクトからhtmlに値を渡す時にth:textなどth:~で指定するがこの時にデフォルトでエスケープ処理が行われる.<br>
+なおエスケープ処理を行いたくない場合はth:utextで値を渡してやると良い.<br>
+デフォルトでエスケープが行われることを知らずハマった箇所である.
+![suteru_fay](https://user-images.githubusercontent.com/52820882/62346076-c386ea00-b52f-11e9-9f76-3958abfc6e02.png)
+#最後に
+##今後の展望
+今回はEC2の中にMySQLを実装したので次はEC2とRDSのサブシステムに分けてインフラ構築したい.
+##ハマった箇所
+s
