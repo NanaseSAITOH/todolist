@@ -13,11 +13,12 @@ public class Escape {
 	}
 	
 	public String change(String str) {
-		String result=str.replace("&", "&amp;")
+		String result=str;
+				/*.replace("&", "&amp;")
 				.replace("\"", "&quot;")
 				.replace("<", "&lt;")
 				.replace(">", "&gt;")
-				.replace("'", "&#39;");
+				.replace("'", "&#39;");*/
 		return result;
 	}
 }

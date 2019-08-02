@@ -151,6 +151,8 @@ public class HelloController {
 	public String search(@RequestParam(name = "text1") String text1,
 		Model model) {
     	findWord=text1;
+    	Escape escape = new Escape();
+    	text1=escape.change(text1);
     	List<Employee> emplist=empRepository.findById2(text1);
         model.addAttribute("employeelist", emplist);
         if(CollectionUtils.isEmpty(emplist)) {
