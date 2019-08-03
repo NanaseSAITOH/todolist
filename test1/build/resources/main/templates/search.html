@@ -135,15 +135,15 @@ position: relative;
       <table th:each="emp : ${employeelist}" th:object="${emp}">
     　<tr>
       <td th:text="TODO名" class="box7"></td>
-      <td th:utext="*{todoname}" class="box4"></td>
+      <td th:text="*{todoname}" class="box4"></td>
      </tr>
     <tr>
       <td th:text="期限：" class="box8"></td>
-      <td th:utext="*{untildate}" class="box5"></td>
+      <td th:text="*{untildate}" class="box5"></td>
     </tr>
     <tr>
       <td th:text="作成日：" class="box9"></td>
-      <td th:utext="*{createdate}" class="box6"></td>
+      <td th:text="*{createdate}" class="box6"></td>
     </tr> 
     <tr>
       <form method="get" action="change">

@@ -14,7 +14,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	@Query(value="select * from test3 where listno=?1", nativeQuery = true)
     public List<Employee> findById1(int listno);
 	
-	@Query(value="select * from test3 where todoname like ?1% AND complete=0", nativeQuery = true)
+	@Query(value="select * from test3 where todoname like %?1% AND complete=0 ORDER BY listno DESC", nativeQuery = true)
     public List<Employee> findById2(String todoname);
 	
 	@Query(value="select color from test3 where listno=?1", nativeQuery = true)

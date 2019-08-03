@@ -150,6 +150,10 @@ public class HelloController {
     @RequestMapping(value = "se",method = RequestMethod.GET)
 	public String search(@RequestParam(name = "text1") String text1,
 		Model model) {
+		if((text1.equals(""))) {
+	    	model.addAttribute("msg","何か入力してください");
+			return "search";
+		}
     	findWord=text1;
     	Escape escape = new Escape();
     	text1=escape.change(text1);
